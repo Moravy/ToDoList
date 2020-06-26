@@ -3,15 +3,50 @@ body {
   font-family: "Josefin Sans", Helvetica, Arial, sans-serif;
   color: #3f4850;
 }
-
+.header{
+  margin-top: 100px;
+  margin-bottom: 50px;
+}
 
 h1 {
   font-family: "Lobster", "Josefin Sans", Helvetica, Arial, sans-serif;
   font-size: 4em;
-  color: #051c33;
+  color: rgb(25, 25, 51);
   padding-bottom:0.2em;
 }
 
+.wrapper{
+  width: auto;
+  margin-top: 20px;
+}
+
+.presentation{
+  display: inline-block;
+  width: 400px;
+  height: auto;
+  padding: 30px;
+  background: #FFF;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23); 
+  transition: all 0.3s; 
+  border-radius: 50px;
+}
+
+.presentation:hover{
+  box-shadow: 0 14px 28px rgba(255, 0, 0, 0.25), 0 10px 10px rgba(0,0,0,0.22);
+  transition: all 0.3s;
+  transform: translateZ(10px);
+}
+
+.buttons{
+  display: inline-block;
+  margin-left: 30px;
+}
+.b{
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
 
 @media only screen and (max-width: 767px) {
   body {

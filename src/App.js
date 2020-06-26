@@ -1,6 +1,6 @@
 import React ,{Component} from 'react';
 import {Header} from './Component/Header';
-import Body from './Container/todo_list';
+import Todolist from './Container/todo_list';
 
 class App extends Component {
     state = { }
@@ -8,7 +8,7 @@ class App extends Component {
         return ( 
             <React.Fragment>
                 <Header />
-                <Body />
+                <Todolist />
             </React.Fragment>
         );
     }
