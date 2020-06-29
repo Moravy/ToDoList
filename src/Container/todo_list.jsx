@@ -9,7 +9,7 @@ class todo_list extends Component {
         this.state = {
           value: '',
           data: [],
-          id: null,
+          id: '0',
         };
       }
 
@@ -25,12 +25,12 @@ class todo_list extends Component {
 
     handleAdd(){
       fetch('http://localhost:8080/users')
-      .then(response => response.json())
+      .then(response =>  response.json())
       .then(fromApi => {
         this.setState({data:fromApi})
-        fromApi.map(element =>{
+        fromApi.map((element) =>(
           this.setState({id:element.id})
-        })
+        ))
       });
     }
     //When the delete this function is triggered
@@ -67,20 +67,29 @@ class todo_list extends Component {
       }
 
     //FIX INSERTING 
+    handleDup=() =>{
+      var newid = parseInt(this.state.id)+1
+      console.log(this.state.id)
+      this.setState({id:newid.toString()},()=>{
+        console.log(this.state.id)
+        const added = this.state.data.concat({id:this.state.id,todo:this.state.value })
+        this.setState({data:added})})
+        var inputField = document.getElementsByClassName("add")[0]
+        inputField.placeholder = "Succeed"
+    }
 
     handleSubmit(event) {
       event.preventDefault();
-      this.setState({id:(parseInt(this.state.id)+1).toString()})
       fetch('http://localhost:8080/users/',{
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({id:this.state.id,todo: this.state.value })
+        }).then(res =>{
+          var inputField = document.getElementsByClassName("add")[0]
+          res.status!== 400 ? this.handleDup() : 
+          inputField.placeholder = "You have already enter this task"
+          inputField.value = ""
         })
-      const added = this.state.data.concat({id:this.state.id,todo: this.state.value })
-      this.setState({data:added})
-      console.log(this.state.data)
-      // const added = this.state.data.concat({id:"50",todo:this.state.value})
-      // this.setState({data:added})
       }
 
     
@@ -94,8 +103,6 @@ class todo_list extends Component {
               <button type="button" className="b disable " disabled><i className="fa fa-plus"></i></button>
             </div>
           </form>
-          
-          
           {this.renderData()}
           </React.Fragment>
          );
