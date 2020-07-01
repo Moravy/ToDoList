@@ -15,18 +15,14 @@ class todo_list extends Component {
 
     // Fetch all the todoItem from the APi and setState
     componentDidMount(){
-        // fetch('http://localhost:8080/users')
-        // .then(response => response.json())
-        // .then(fromApi => {
-        //   this.setState({data:fromApi})
-        // });
         this.handleAdd();
     }
 
     handleAdd(){
-      fetch('http://localhost:8080/users')
+      fetch('https://us-central1-clear-tooling-281208.cloudfunctions.net/first-function/users')
       .then(response =>  response.json())
       .then(fromApi => {
+        console.log(fromApi)
         this.setState({data:fromApi})
         fromApi.map((element) =>(
           this.setState({id:element.id})
@@ -41,7 +37,7 @@ class todo_list extends Component {
     handleDelete = itemId =>{
       const items = this.state.data.filter((element) => element.id !== itemId);
       this.setState({data:items})
-      fetch('http://localhost:8080/users/'+itemId,{
+      fetch('https://us-central1-clear-tooling-281208.cloudfunctions.net/first-function/users/'+itemId,{
         method: 'DELETE',
       })
       .then(res => res.text())
@@ -66,7 +62,7 @@ class todo_list extends Component {
       this.setState({value:event.target.value})
       }
 
-    //FIX INSERTING 
+     
     handleDup=() =>{
       var newid = parseInt(this.state.id)+1
       console.log(this.state.id)
@@ -80,7 +76,7 @@ class todo_list extends Component {
 
     handleSubmit(event) {
       event.preventDefault();
-      fetch('http://localhost:8080/users/',{
+      fetch('https://us-central1-clear-tooling-281208.cloudfunctions.net/first-function/users',{
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({id:this.state.id,todo: this.state.value })
